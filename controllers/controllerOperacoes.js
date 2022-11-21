@@ -1,5 +1,6 @@
 import { atividadeC, operacoesC, usuariosC } from "../index.js";
 import joi from "joi"
+import dayjs from "dayjs"
 
 const entradaJOI = joi.object({
     description: joi.string().required().min(1),
@@ -34,7 +35,7 @@ export async function entrada(req, res) {
         if (!atividade) {
             return res.sendStatus(401);
         }
-        operacoesC.insertOne({ description, value, userId: atividade.userId, })
+        operacoesC.insertOne({ time: dayjs().format("DD/MM"), description, value, userId: atividade.userId, })
         return res.sendStatus(201)
     } catch (err) {
         console.log(err);
@@ -64,7 +65,7 @@ export async function saida(req, res) {
         if (!atividade) {
             return res.sendStatus(401);
         }
-        operacoesC.insertOne({ description, value, userId: atividade.userId, })
+        operacoesC.insertOne({ time: dayjs().format("DD/MM"), description, value, userId: atividade.userId, })
         return res.sendStatus(201)
     } catch (err) {
         console.log(err);
