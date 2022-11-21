@@ -2,8 +2,8 @@ import dotenv from "dotenv"
 import express from "express"
 import cors from "cors"
 import { MongoClient } from "mongodb"
-import { cadastro, login } from "./controllers/controllerUsuario.js";
-import { entrada, saida } from "./controllers/controllerOperacoes.js";
+import routeUsuario from "./routes/routeUsuario.js"
+import routeOperacoes from "./routes/routeOperacoes.js"
 
 
 dotenv.config()
@@ -27,9 +27,5 @@ export const usuariosC = db.collection("usuarios");
 export const atividadeC = db.collection("atividade");
 export const operacoesC = db.collection("operacoes")
 
-app.post("/cadastro", cadastro);
-app.post("/login", login);
-app.post("/entrada", entrada);
-app.post("/saida", saida);
-// app.get("/extrato", extrato);
-
+app.use(routeUsuario)
+app.use(routeOperacoes)
